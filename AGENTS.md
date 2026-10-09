@@ -1,8 +1,46 @@
 # Repository Guidelines
 
+## Overview of Project
+- This project is simpal Ai chatbot which use `ollama's` different free models to response and also able to search the web by using `Firecrawl` module 
+
 ## Project Structure
 
-The repository root contains `requirements.txt` and the Python virtual environment `myenv/`. The Django project lives in `my-project/aiwebsearching/`: `manage.py` is the management entry point, `aiwebsearching/` contains project settings and URL configuration, and `myapp/` contains application code, migrations, and tests. Keep new application behavior in `myapp/` unless it belongs to project-wide configuration. Do not commit the local database or virtual environment.
+The Django project is under `my-project/aiwebsearching/`. `manage.py` is its command entry point, the inner `aiwebsearching/` package holds project configuration, and `myapp/` contains the application. Keep new application behavior in `myapp/` unless it belongs to project-wide configuration. The `.env`, database, and virtual environment are local-only; never read or modify `.env`.
+
+## Architecture Tree
+
+```text
+web-searching/
+|-- .gitignore
+|-- AGENTS.md
+|-- requirements.txt
+|-- myenv/                              # Local Python virtual environment
+`-- my-project/
+    `-- aiwebsearching/
+        |-- .env                        # Local secrets; do not read or modify
+        |-- .gitignore
+        |-- db.sqlite3                  # Local development database
+        |-- manage.py
+        |-- aiwebsearching/             # Django project configuration
+        |   |-- __init__.py
+        |   |-- asgi.py
+        |   |-- settings.py
+        |   |-- urls.py                 # Project URL routing
+        |   `-- wsgi.py
+        `-- myapp/                      # Application code
+            |-- __init__.py
+            |-- admin.py
+            |-- apps.py
+            |-- models.py
+            |-- serialization.py
+            |-- tests.py
+            |-- urls.py                 # App URL routing
+            |-- views.py
+            `-- migrations/
+                |-- __init__.py
+                |-- 0001_initial.py      # Initial Users table
+                `-- 0002_delete_userserialcounter_remove_users_sr_no.py
+```
 
 ## Development Commands
 
@@ -32,4 +70,10 @@ The repository has no commit history yet, so no established commit format is ava
 
 ## Configuration and Secrets
 
-Keep credentials and machine-specific settings out of source control. Install dependencies from `requirements.txt`; do not add the virtual environment or generated database files to commits.
+- Keep credentials and machine-specific settings out of source control. Install dependencies from `requirements.txt`; do not add the virtual environment or generated database files to commits.
+- Never read, modify,open,delete `.env` file
+- Never commit it in git 
+
+## Codex Project Guidance
+
+This `AGENTS.md` is the canonical project instruction file for Codex. As the project grows, keep durable decisions, verified commands, and conventions current here. Confirm details against the repository before documenting them, and remove guidance that becomes outdated. Add nested `AGENTS.md` files only when a subdirectory needs distinct instructions.
